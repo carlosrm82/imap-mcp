@@ -154,7 +154,8 @@ def main() -> None:
     
     # Start the server
     logger.info("Starting server{}...".format(" in development mode" if args.dev else ""))
-    server.run()
+    port = int(os.environ.get("PORT", 8000))
+    server.run(transport="sse", host="0.0.0.0", port=port)
     
     
 if __name__ == "__main__":
