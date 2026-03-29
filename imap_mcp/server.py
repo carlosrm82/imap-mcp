@@ -75,9 +75,12 @@ def create_server(config_path: Optional[str] = None, debug: bool = False) -> Fas
     config = load_config(config_path)
     
     # Create MCP server with all the necessary capabilities
+    port = int(os.environ.get("PORT", 8000))
     server = FastMCP(
         "IMAP",
         lifespan=server_lifespan,
+        host="0.0.0.0",
+        port=port,
     )
     
     # Store config for access in the lifespan
