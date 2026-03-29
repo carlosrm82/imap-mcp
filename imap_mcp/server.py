@@ -149,11 +149,12 @@ def main() -> None:
         logger.setLevel(logging.DEBUG)
     
     server = create_server(args.config, args.debug)
-    
+
     # Start the server
     logger.info("Starting server{}...".format(" in development mode" if args.dev else ""))
-    port = int(os.environ.get("PORT", 8000))
-    server.run(transport="sse", host="0.0.0.0", port=port)
+    os.environ.setdefault("FASTMCP_HOST", "0.0.0.0")
+    os.environ.setdefault("FASTMCP_PORT", os.environ.get("PORT", "8000"))
+    server.run(transport="sse")
     
     
 if __name__ == "__main__":
